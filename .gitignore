@@ -2,5 +2,7 @@
 # Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
 ################################################################################
 
-/Zetaur-GUI/bin/*
-/Zetaur-GUI/obj/*
+bin
+obj
+*.suo
+*.user
