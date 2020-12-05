@@ -58,19 +58,20 @@
                             <GradientStop Color="#FF7BB8E6" Offset="1"/>
                         </RadialGradientBrush>
                     </Grid.Background>
-                    <TextBox Name="inputtext" HorizontalAlignment="Left" Margin="169,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.492,1.174" TextChanged="Inputtext_TextChanged" KeyDown="inputtext_Enter"/>
+                    <TextBox Name="inputtext" HorizontalAlignment="Left" Margin="169,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.492,1.174" TextChanged="Inputtext_TextChanged" KeyDown="Inputtext_Enter"/>
                     <Label Content="Inserte cantidad a convertir:" HorizontalAlignment="Left" Margin="11,64,0,0" VerticalAlignment="Top" Width="160"/>
                     <Button Content="Convertir" HorizontalAlignment="Left" Margin="402,70,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.555,0.555" Click="Button_Click"/>
-                    <ComboBox Name="magnitud" HorizontalAlignment="Left" Margin="230,21,0,0" VerticalAlignment="Top" Width="120" DropDownClosed="magnitud_DropDownClosed" SelectedIndex="0">
+                    <ComboBox Name="magnitud" HorizontalAlignment="Left" Margin="262,22,0,0" VerticalAlignment="Top" Width="120" DropDownClosed="Magnitud_DropDownClosed" SelectedIndex="0">
                         <ComboBoxItem Content="Temperatura"/>
                         <ComboBoxItem Content="Longitud"/>
                         <ComboBoxItem Content="Masa"/>
                         <ComboBoxItem Content="Presión"/>
                     </ComboBox>
-                    <Label Content="Seleccione la magnitud a transformar" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Seleccione la magnitud a transformar" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" FontSize="14"/>
                     <ComboBox HorizontalAlignment="Left" Margin="293,68,0,0" VerticalAlignment="Top" Width="100" Name="unidad" SelectedIndex="0"/>
-                    <CheckBox Content="Múltipos y Submúltiplos" HorizontalAlignment="Left" Margin="16,94,0,0" VerticalAlignment="Top" Name="MS_check" Checked="magnitud_DropDownClosed" Unchecked="magnitud_DropDownClosed"/>
+                    <CheckBox Content="Múltipos y Submúltiplos" HorizontalAlignment="Left" Margin="16,94,0,0" VerticalAlignment="Top" Name="MS_check" Checked="Magnitud_DropDownClosed" Unchecked="Magnitud_DropDownClosed"/>
                     <TextBlock x:Name="outtxt" HorizontalAlignment="Stretch" Margin="30,125,30,50" TextWrapping="Wrap" VerticalAlignment="Stretch" Opacity="0.8" FontSize="24"/>
+                    <Label Content="Los valores X,XXXE+XXX están en notación cientifica, E+XXX equivale a 10^XXX." HorizontalAlignment="Stretch" Margin="600,20,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="18"/>
                 </Grid>
             </TabItem>
         </TabControl>
