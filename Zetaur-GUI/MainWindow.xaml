@@ -1,0 +1,80 @@
+﻿<Window x:Class="Zetaur_GUI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Zetaur_GUI"
+        mc:Ignorable="d"
+        Title="Zetaur" Height="720" Width="1280" Icon="/Logo.jpg" RenderTransformOrigin="0.5,0.5">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+            <LinearGradientBrush.RelativeTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="-1" ScaleY="-1"/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </LinearGradientBrush.RelativeTransform>
+            <GradientStop Color="#FF0C3A60"/>
+            <GradientStop Color="#FF4CA0E8" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <StackPanel MouseLeftButtonDown="Window_MouseLeftButtonDown">
+
+        <TabControl VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Height="705">
+            <TabControl.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF43D1C9" Offset="1"/>
+                    <GradientStop Color="#FF1F5B57" Offset="0"/>
+                    <GradientStop Color="#FF236FAE" Offset="0.5"/>
+                </LinearGradientBrush>
+            </TabControl.Background>
+            <TabItem Header="Inicio" >
+                <StackPanel MouseLeftButtonDown="Window_MouseLeftButtonDown" HorizontalAlignment="Center" Width="735" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                    <StackPanel.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </StackPanel.RenderTransform>
+                    <StackPanel.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFB8DBEE"/>
+                            <GradientStop Color="#FF1896D8" Offset="1"/>
+                        </LinearGradientBrush>
+                    </StackPanel.Background>
+                    <Label x:Name="hora_lb" Content="" FontFamily="Arial" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Label Content="" x:Name="fecha_lb" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Conversor de Unidades" HorizontalAlignment="Left" Margin="-2,-2,0,0" Width="140">
+                <Grid Height="673" HorizontalAlignment="Stretch" Width="1274">
+                    <Grid.Background>
+                        <RadialGradientBrush>
+                            <GradientStop Color="#FF1C4B6F" Offset="0"/>
+                            <GradientStop Color="#FF7BB8E6" Offset="1"/>
+                        </RadialGradientBrush>
+                    </Grid.Background>
+                    <TextBox Name="inputtext" HorizontalAlignment="Left" Margin="169,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.492,1.174" TextChanged="Inputtext_TextChanged" KeyDown="inputtext_Enter"/>
+                    <Label Content="Inserte cantidad a convertir:" HorizontalAlignment="Left" Margin="11,64,0,0" VerticalAlignment="Top" Width="160"/>
+                    <Button Content="Convertir" HorizontalAlignment="Left" Margin="402,70,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.555,0.555" Click="Button_Click"/>
+                    <ComboBox Name="magnitud" HorizontalAlignment="Left" Margin="230,21,0,0" VerticalAlignment="Top" Width="120" DropDownClosed="magnitud_DropDownClosed" SelectedIndex="0">
+                        <ComboBoxItem Content="Temperatura"/>
+                        <ComboBoxItem Content="Longitud"/>
+                        <ComboBoxItem Content="Masa"/>
+                        <ComboBoxItem Content="Presión"/>
+                    </ComboBox>
+                    <Label Content="Seleccione la magnitud a transformar" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="293,68,0,0" VerticalAlignment="Top" Width="100" Name="unidad" SelectedIndex="0"/>
+                    <CheckBox Content="Múltipos y Submúltiplos" HorizontalAlignment="Left" Margin="16,94,0,0" VerticalAlignment="Top" Name="MS_check" Checked="magnitud_DropDownClosed" Unchecked="magnitud_DropDownClosed"/>
+                    <TextBlock x:Name="outtxt" HorizontalAlignment="Stretch" Margin="30,125,30,50" TextWrapping="Wrap" VerticalAlignment="Stretch" Opacity="0.8" FontSize="24"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+
+    </StackPanel>
+</Window>
