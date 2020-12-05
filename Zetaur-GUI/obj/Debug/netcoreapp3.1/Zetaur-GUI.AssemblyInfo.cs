@@ -11,13 +11,15 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Zetaur-GUI")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Zegameus Company Network Records")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+[assembly: System.Reflection.AssemblyCopyrightAttribute("Zegameus Company Network Records")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.150")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Zetaur-GUI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Zetaur-GUI")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.150")]
+[assembly: System.Resources.NeutralResourcesLanguageAttribute("es-ES")]
 
 // Generado por la clase WriteCodeFragment de MSBuild.
 
