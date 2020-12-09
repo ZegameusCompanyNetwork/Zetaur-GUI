@@ -4,5 +4,9 @@
 
 bin
 obj
-*.suo
-*.user
+.suo
+.user
+.dtbcache.v2
+*.pubxml
+slnx.sqlite
+VSWorkspaceState.json
