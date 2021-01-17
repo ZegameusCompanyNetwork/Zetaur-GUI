@@ -18,9 +18,17 @@
     <Company>Zegameus Company Network Records</Company>
     <Authors>Zegameus Companu Network Records</Authors>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <AssemblyVersion>1.0.0.151</AssemblyVersion>
-    <FileVersion>1.0.0.151</FileVersion>
-    <Version>1.0.0.151</Version>
+    <AssemblyVersion>1.0.1.0</AssemblyVersion>
+    <FileVersion>1.0.1.0</FileVersion>
+    <Version>1.0.1.0</Version>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>ZCNR.pfx</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <GenerateSerializationAssemblies></GenerateSerializationAssemblies>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
 
   <ItemGroup>

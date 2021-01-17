@@ -30,19 +30,24 @@ namespace Zetaur_GUI
             hora_lb.Content = DateTime.Now.ToLongTimeString();
 
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
             dispatcherTimer.Start();
             DateTime dt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
             string dtStr = dt.ToString(@"dd/MM/yyyy");
             fecha_lb.Content = dtStr;
         }
-        
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        public readonly string[] temps = new string[] { "Celsius (ºC)", "Farenheit (ºF)", "Kelvin (K)" };
+        public readonly string[] long_ms = new string[] { "Kilómetros (km)", "Metros (m)", "Centímetros (cm)", "Milímetros (mm)", "Micrómetros (µm)", "Nanómetros (nm)" };
+        public readonly string[] long_all = new string[] { "Kilómetros (km)", "Metros (m)", "Millas (Mi)", "Millas Náuticas (Nmi)", "Pulgadas (in)", "Yardas (Yd)", "Pies (ft)" };
+        public readonly string[] masa = new string[] { "Kilogramos (kg)", "Gramos (g)", "Toneladas (t)", "Tonelada Corta (US t)", "Tonelada larga (UK t)", "Onzas (Oz)", "Libras (lb)", "Stones (st)" };
+        public readonly string[] ms_masa = new string[] { "Toneladas (t)", "Kilogramos (kg)", "Gramos (g)", "Miligramos (mg)" };
+        public readonly string[] presion = new string[] { "Atmósferas (atm)", "Bares (bar)", "Milibares (mbar)", "Libra por pulgada cuadrada (PSI)", "Pascales (Pa)", "Hectopascales (hPa)", "Milímetros de Mercurio (mmHg)", "Torr (torr)", "Kilopondio por centímetro cuadrado" };
+        public readonly string[] ms_presion = new string[] { "Pascal (Pa)", "Kilopascal (kPa)", "Hectopascal (hPa)", "Megapascal (MPa)" };
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             hora_lb.Content = DateTime.Now.ToLongTimeString();
         }
-        CultureInfo culture = CultureInfo.InvariantCulture;
         public double i;
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -107,7 +112,7 @@ namespace Zetaur_GUI
 
                         outtxt.Text = $"{i} milímetros son:\n\n{Math.Round(km, 4):E} kilómetros.\n{Math.Round(m, 4):E} metros.\n{Math.Round(cm, 4):E} centímetros.\n{Math.Round(micra, 4):E} micrómetros.\n{Math.Round(nm, 4):E} nanómetros.\n";
                     }
-                    else if (unidad.Text == "Micrómteros (µm)")
+                    else if (unidad.Text == "Micrómetros (µm)")
                     {
                         double km = i / Math.Pow(10, 9), m = i / Math.Pow(10, 6), cm = i / Math.Pow(10, 4), mm = i / 1000, nm = i * 1000;
                         outtxt.Text = $"{i} micras son:\n\n{Math.Round(km, 4):E} kilómetros.\n{Math.Round(m, 4):E} metros.\n{Math.Round(cm, 4):E} centímetros.\n{Math.Round(mm, 4):E} milímetros.\n{Math.Round(nm, 4):E} nanómetros.\n";
@@ -115,45 +120,211 @@ namespace Zetaur_GUI
                     else if (unidad.Text == "Nanómetros (nm)")
                     {
                         double km = i / Math.Pow(10, 12), m = i / Math.Pow(10, 9), cm = i / Math.Pow(10, 7), mm = i / Math.Pow(10, 6), micra = i / 1000;
-                        outtxt.Text = $"{i} nanómetros son:\n\n{Math.Round(km, 4):E} kilómetros.\n{Math.Round(m, 4):E} metros.\n{Math.Round(cm, 4):E} centímetros.\n\n{Math.Round(mm, 4):E} milímetros.{Math.Round(micra, 4):E} micrómetros.\n";
+                        outtxt.Text = $"{i} nanómetros son:\n\n{Math.Round(km, 4):E} kilómetros.\n{Math.Round(m, 4):E} metros.\n{Math.Round(cm, 4):E} centímetros.\n{Math.Round(mm, 4):E} milímetros.\n{Math.Round(micra, 4):E} micrómetros.\n";
                     }
                     else { MessageBox.Show("Esto no debería aparecerte", "Error en la unidad seleccionada", MessageBoxButton.OK, MessageBoxImage.Error); }
                 }
+                else if (MS_check.IsChecked == false)
+                {
+                    if (unidad.Text == "Kilómetros (km)")
+                    {
+                        double m = i * 1000, mi = i / 1.609, nmi = i / 1.852, inc = i * 39370, yd = m * 1093.613, ft = 3.281;
+                        outtxt.Text = $"{i} Kilómetros son:\n{Math.Round(m, 4):E} metros.\n{mi} Millas.\n{nmi} Millas Náuticas.\n{inc} Pulgadas.\n{yd} Yardas.\n{ft} Pies.";
+                    }
+                    else if (unidad.Text == "Metros (m)")
+                    {
+                        double km = i / 1000, mi = km / 1.609, nmi = km / 1.852, inc = i * 39.97, yd = km * 1093.613, ft = i * 3.281;
+                        outtxt.Text = $"{i} metros son:\n{km} Kilómetros.\n{mi} Millas.\n{nmi} Millas Náuticas.\n{inc} Pulgadas.\n{yd} Yardas.\n{ft} Pies.";
+                    }
+                    else if (unidad.Text == "Millas (Mi)")
+                    {
+                        double m = i * 1609, km = i * 1.609, inc = i * 63360, nmi = i / 1.151, yd = i * 1760, ft = i * 5280;
+                        outtxt.Text = $"{i} Millas son:\n{m} metros.\n{km} Kilómetros.\n{nmi} Millas Náuticas.\n{inc} Pulgadas.\n{yd} Yardas.\n{ft} Pies.";
+                    }
+                    else if (unidad.Text == "Millas Náuticas (Nmi)")
+                    {
+                        double m = i * 1852, km = i * 1.852, inc = i * 72913, mi = i * 1.151, yd = i * 2025.37, ft = i * 6076.12;
+                        outtxt.Text = $"{i} Millas Náuticas son:\n{m} metros.\n{km} Kilómetros.\n{mi} Millas.\n{inc} Pulgadas.\n{yd} Yardas.\n{ft} Pies.";
+                    }
+                    else if (unidad.Text == "Pulgadas (in)")
+                    {
+                        double m = i / 39.97, km = i / 39970, mi = i / 63360, nmi = i / 72913, yd = 36, ft = i / 12;
+                        outtxt.Text = $"{i} Pulgads son:\n{m} metros.\n{km} Kilómetros.\n{mi} Millas.\n{nmi} Millas Náuticas.\n{yd} Yardas.\n{ft} Pies.";
+                    }
+                    else if (unidad.Text == "Yardas (Yd)")
+                    {
+                        double m = i / 1.094, km = m / 1000, mi = i / 1760, nmi = i / 2025, inc = i * 36, ft = i * 3;
+                        outtxt.Text = $"{i} Yardas son:\n{m} metros.\n{km} Kilómetros.\n{mi} Millas.\n{nmi} Millas Náuticas.\n{inc} Pulgadas.\n{ft} Pies.";
+                    }
+                    else if (unidad.Text == "Pies(ft)")
+                    {
+                        double m = i / 3.281, km = m / 1000, mi = i / 5280, nmi = i / 6076, inc = i * 12, yd = i / 3;
+                        outtxt.Text = $"{i} Pies son:\n{m} metros.\n{km} Kilómetros.\n{mi} Millas.\n{nmi} Millas Náuticas.\n{inc} Pulgadas.\n{yd} Yardas.";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Esto no debería aparecerte", "Error en la unidad seleccionada", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
                 else
                 {
-
+                    MessageBox.Show("Esto no debería aparecerte", "Error en la unidad seleccionada", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             #endregion
+            #region Masa
             else if (magnitud.Text == "Masa")
             {
                 if (MS_check.IsChecked == true)
                 {
+                    if (unidad.Text == masa[0])
+                    {
 
+                    }
+                    else if (unidad.Text == masa[1])
+                    {
+
+                    }
+                    else if (unidad.Text == masa[2])
+                    {
+
+                    }
+                    else if (unidad.Text == masa[3])
+                    {
+
+                    }
+                    else if (unidad.Text == masa[4])
+                    {
+
+                    }
+                    else if (unidad.Text == masa[5])
+                    {
+
+                    }
+                    else if (unidad.Text == masa[6])
+                    {
+
+                    }
+                    else if (unidad.Text == masa[7])
+                    {
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Esto no debería aparecerte", "Error en la unidad seleccionada", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else if (MS_check.IsChecked == false)
+                {
+                    if (unidad.Text == ms_masa[0])
+                    {
+
+                    }
+                    else if (unidad.Text == ms_masa[1])
+                    {
+
+                    }
+                    else if (unidad.Text == ms_masa[2])
+                    {
+
+                    }
+                    else if (unidad.Text == ms_masa[3])
+                    {
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Esto no debería aparecerte", "Error en la unidad seleccionada", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 else
                 {
-
+                    MessageBox.Show("Esto no debería aparecerte", "Error en la unidad seleccionada", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+            #endregion
+            #region Presión
             else if (magnitud.Text == "Presión")
             {
                 if (MS_check.IsChecked == true)
                 {
+                    if (unidad.Text == ms_presion[0])//Pascal
+                    {
 
+                    }
+                    else if (unidad.Text == ms_presion[1])//Kilopascal
+                    {
+
+                    }
+                    else if (unidad.Text == ms_presion[2])//Hectopascal
+                    {
+
+                    }
+                    else if (unidad.Text == ms_presion[3])//Megapascal
+                    {
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Esto no debería aparecerte", "Error en la unidad seleccionada", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                else if (MS_check.IsChecked == false)
+                {
+                    if (unidad.Text == presion[0])
+                    {
+
+                    }
+                    else if (unidad.Text == presion[1])
+                    {
+
+                    }
+                    else if (unidad.Text == presion[2])
+                    {
+
+                    }
+                    else if (unidad.Text == presion[3])
+                    {
+
+                    }
+                    else if (unidad.Text == presion[4])
+                    {
+
+                    }
+                    else if (unidad.Text == presion[5])
+                    {
+
+                    }
+                    else if (unidad.Text == presion[6])
+                    {
+
+                    }
+                    else if (unidad.Text == presion[7])
+                    {
+
+                    }
+                    else if (unidad.Text == presion[8])
+                    {
+
+                    }
+                    else if (unidad.Text == presion[9])
+                    {
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Esto no debería aparecerte", "Error en la unidad seleccionada", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 else
                 {
-
+                    MessageBox.Show("Esto no debería aparecerte", "Error en la unidad seleccionada", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+            #endregion
             else { MessageBox.Show("Esto no debería aparecerte", "Error en la unidad seleccionada", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
-        public readonly string[] temps = new string[] { "Celsius (ºC)", "Farenheit (ºF)", "Kelvin (K)" };
-        public readonly string[] long_ms = new string[] { "Kilómetros (km)", "Metros (m)", "Centímetros (cm)", "Milímetros (mm)", "Micrómetros (µm)", "Nanómetros (nm)" };
-        public readonly string[] long_all = new string[] { "Kilómetros (km)", "Metros (m)", "Millas (Mi)", "Millas Náuticas (Nmi)", "Pulgadas (in)", "Yardas (Yd)", "Pies (ft)" };
-        public readonly string[] masa = new string[] { };
 
         /// <summary>
         /// Comprobar y cambiar los objetos desplegados en el menú de unidades.
@@ -196,12 +367,42 @@ namespace Zetaur_GUI
             else if (magnitud.SelectedIndex == 2)//Masa
             {
                 unidad.Items.Clear();
-
+                if (MS_check.IsChecked == true)
+                {
+                    foreach (string s in ms_masa)
+                    {
+                        unidad.Items.Add(s);
+                    }
+                    unidad.SelectedIndex = 0;
+                }
+                else
+                {
+                    foreach (string s in masa)
+                    {
+                        unidad.Items.Add(s);
+                    }
+                    unidad.SelectedIndex = 0;
+                }
             }
             else//Presión
             {
                 unidad.Items.Clear();
-
+                if (MS_check.IsChecked == true)
+                {
+                    foreach (string s in ms_presion)
+                    {
+                        unidad.Items.Add(s);
+                    }
+                    unidad.SelectedIndex = 0;
+                }
+                else
+                {
+                    foreach (string s in presion)
+                    {
+                        unidad.Items.Add(s);
+                    }
+                    unidad.SelectedIndex = 0;
+                }
             }
         }
         /// <summary>
