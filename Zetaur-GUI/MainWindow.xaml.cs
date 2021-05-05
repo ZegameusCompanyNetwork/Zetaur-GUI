@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Zetaur_GUI;
 
 namespace Zetaur_GUI
 {
@@ -40,15 +41,103 @@ namespace Zetaur_GUI
         public readonly string[] temps = new string[] { "Celsius (ºC)", "Farenheit (ºF)", "Kelvin (K)" };
         public readonly string[] long_ms = new string[] { "Kilómetros (km)", "Metros (m)", "Centímetros (cm)", "Milímetros (mm)", "Micrómetros (µm)", "Nanómetros (nm)" };
         public readonly string[] long_all = new string[] { "Kilómetros (km)", "Metros (m)", "Millas (Mi)", "Millas Náuticas (Nmi)", "Pulgadas (in)", "Yardas (Yd)", "Pies (ft)" };
-        public readonly string[] masa = new string[] { "Kilogramos (kg)", "Gramos (g)", "Toneladas (t)", "Tonelada Corta (US t)", "Tonelada larga (UK t)", "Onzas (Oz)", "Libras (lb)", "Stones (st)" };
-        public readonly string[] ms_masa = new string[] { "Toneladas (t)", "Kilogramos (kg)", "Gramos (g)", "Miligramos (mg)" };
+        /// <summary>
+        /// <list type="table">
+        /// <listheader>
+        ///     <term>Número</term>
+        ///     <description>Unidad</description>
+        /// </listheader>
+        /// <item>
+        ///     <term>0</term>
+        ///     <description>Kilogramos</description>
+        /// </item>
+        /// <item>
+        ///     <term>1</term>
+        ///     <description>Gramos</description>
+        /// </item>
+        /// <item>
+        ///     <term>2</term>
+        ///     <description>Tonelada Métrica</description>
+        /// </item>
+        /// <item>
+        ///     <term>3</term>
+        ///     <description>Tonelada Corta (US t)</description>
+        /// </item>
+        /// <item>
+        ///     <term>4</term>
+        ///     <description>Tonelada Larga (UK t)</description>
+        /// </item>
+        /// <item>
+        ///     <term>5</term>
+        ///     <description>Onzas</description>
+        /// </item>
+        /// <item>
+        ///     <term>6</term>
+        ///     <description>Libras</description>
+        /// </item>
+        /// <item>
+        ///     <term>7</term>
+        ///     <description>Stones</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        public readonly string[] masa = new string[] { "Kilogramos (Kg)", "Gramos (g)", "Toneladas (t)", "Tonelada Corta (US t)", "Tonelada larga (UK t)", "Onzas (Oz)", "Libras (lb)", "Stones (st)" };
+        public readonly string[] ms_masa = new string[] { "Toneladas (t)", "Kilogramos (Kg)", "Gramos (g)", "Miligramos (mg)" };
+        /// <summary>
+        /// <list type="table">
+        /// <listheader>
+        ///     <term>Número</term>
+        ///     <description>Unidad</description>
+        /// </listheader>
+        /// <item>
+        ///     <term>0</term>
+        ///     <description>Atmósferas (atm)</description>
+        /// </item>
+        /// <item>
+        ///     <term>1</term>
+        ///     <description>Bares</description>
+        /// </item>
+        /// <item>
+        ///     <term>2</term>
+        ///     <description>Milibares</description>
+        /// </item>
+        /// <item>
+        ///     <term>3</term>
+        ///     <description>PSI</description>
+        /// </item>
+        /// <item>
+        ///     <term>4</term>
+        ///     <description>Pascales</description>
+        /// </item>
+        /// <item>
+        ///     <term>5</term>
+        ///     <description>Hectopascales</description>
+        /// </item>
+        /// <item>
+        ///     <term>6</term>
+        ///     <description>Mílimetros de Mercurio</description>
+        /// </item>
+        /// <item>
+        ///     <term>7</term>
+        ///     <description>Torr</description>
+        /// </item>
+        /// <item>
+        ///     <term>8</term>
+        ///     <description>Kp/cm^2</description>
+        /// </item>
+        /// </list>
+        /// </summary>
         public readonly string[] presion = new string[] { "Atmósferas (atm)", "Bares (bar)", "Milibares (mbar)", "Libra por pulgada cuadrada (PSI)", "Pascales (Pa)", "Hectopascales (hPa)", "Milímetros de Mercurio (mmHg)", "Torr (torr)", "Kilopondio por centímetro cuadrado" };
+
+        /// <summary>
+        /// 0 = Pascal, 1 = Kilopascal, 2 = Hectopascal, 3 = Megapascal
+        /// </summary>
         public readonly string[] ms_presion = new string[] { "Pascal (Pa)", "Kilopascal (kPa)", "Hectopascal (hPa)", "Megapascal (MPa)" };
         private void DispatcherTimer_Tick(object sender, EventArgs e)
         {
             hora_lb.Content = DateTime.Now.ToLongTimeString();
         }
-        public double i;
+        public double i;//Entrada numerica
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string inputxt = inputtext.Text;
@@ -177,37 +266,25 @@ namespace Zetaur_GUI
             {
                 if (MS_check.IsChecked == true)
                 {
-                    if (unidad.Text == masa[0])
+                    if (unidad.Text == ms_masa[0])//Toneladas
                     {
-
+                        double kg = i * 1000, g = i * 1000, mg = g * 1000;
+                        outtxt.Text = $"{i} toneladas son:\n{kg} Kilogramos.\n{g} Gramos.\n{mg} Miligramos.";
                     }
-                    else if (unidad.Text == masa[1])
+                    else if (unidad.Text == ms_masa[1])//Kilogramos
                     {
-
+                        double T = i / 1000, g = i * 1000, mg = g * 1000;
+                        outtxt.Text = $"{i} kilogramos son:\n{T} toneladas.\n{g} Gramos.\n{mg} Miligramos.";
                     }
-                    else if (unidad.Text == masa[2])
+                    else if (unidad.Text == ms_masa[2])//Gramos
                     {
-
+                        double kg = i / 1000, T = kg / 1000, mg = i * 1000;
+                        outtxt.Text = $"{i} Gramos son:\n{T} toneladas.\n{kg} Kilogramos.\n{mg} Miligramos.";
                     }
-                    else if (unidad.Text == masa[3])
+                    else if (unidad.Text == ms_masa[3])//Miligramos
                     {
-
-                    }
-                    else if (unidad.Text == masa[4])
-                    {
-
-                    }
-                    else if (unidad.Text == masa[5])
-                    {
-
-                    }
-                    else if (unidad.Text == masa[6])
-                    {
-
-                    }
-                    else if (unidad.Text == masa[7])
-                    {
-
+                        double g = i / 1000, kg = g / 1000, T = i / 1000;
+                        outtxt.Text = $"{i} miligramos son:\n{T} toneladas.\n{kg} Kilogramos.\n{g} Gramos.";
                     }
                     else
                     {
@@ -216,21 +293,47 @@ namespace Zetaur_GUI
                 }
                 else if (MS_check.IsChecked == false)
                 {
-                    if (unidad.Text == ms_masa[0])
+
+                    if (unidad.Text == masa[0])//Kilogramos
                     {
+                        double g = i * 1000, T = i / 1000, UsT = i / 907.185, UkT = i / 1016, Oz = i * 32.274, Lb = i * 2.20462, St = i / 6.35;
+                        outtxt.Text = $"{i} {masa[0]} son:\n{g} {masa[1]}.\n{T} {masa[2]}, {UsT} {masa[3]} o {UkT} {masa[4]}.\n{Oz} {masa[5]}.\n{Lb} {masa[6]}.\n{St} {masa[7]}";
+                    }
+                    else if (unidad.Text == masa[1])//gramos
+                    {
+                        double g = i * 1000, T = i / 1000, UsT = i / 907.185, UkT = i / 1016, Oz = i * 32.274, Lb = i * 2.20462, St = i / 6.35;
+                        outtxt.Text = $"{i} {masa[0]} son:\n{g} {masa[1]}.\n{T} {masa[2]}, {UsT} {masa[3]} o {UkT} {masa[4]}.\n{Oz} {masa[5]}.\n{Lb} {masa[6]}.\n{St} {masa[7]}";
+                    }
+                    else if (unidad.Text == masa[2])//Toneladas Métricas
+                    {
+                        double g = i * 1000, T = i / 1000, UsT = i / 907.185, UkT = i / 1016, Oz = i * 32.274, Lb = i * 2.20462, St = i / 6.35;
+                        outtxt.Text = $"{i} {masa[0]} son:\n{g} {masa[1]}.\n{T} {masa[2]}, {UsT} {masa[3]} o {UkT} {masa[4]}.\n{Oz} {masa[5]}.\n{Lb} {masa[6]}.\n{St} {masa[7]}";
 
                     }
-                    else if (unidad.Text == ms_masa[1])
+                    else if (unidad.Text == masa[3])//Tonelada Corta (US t)
                     {
-
+                        double g = i * 1000, T = i / 1000, UsT = i / 907.185, UkT = i / 1016, Oz = i * 32.274, Lb = i * 2.20462, St = i / 6.35;
+                        outtxt.Text = $"{i} {masa[0]} son:\n{g} {masa[1]}.\n{T} {masa[2]}, {UsT} {masa[3]} o {UkT} {masa[4]}.\n{Oz} {masa[5]}.\n{Lb} {masa[6]}.\n{St} {masa[7]}";
                     }
-                    else if (unidad.Text == ms_masa[2])
+                    else if (unidad.Text == masa[4])//Tonelada Larga (UK t)
                     {
-
+                        double g = i * 1000, T = i / 1000, UsT = i / 907.185, UkT = i / 1016, Oz = i * 32.274, Lb = i * 2.20462, St = i / 6.35;
+                        outtxt.Text = $"{i} {masa[0]} son:\n{g} {masa[1]}.\n{T} {masa[2]}, {UsT} {masa[3]} o {UkT} {masa[4]}.\n{Oz} {masa[5]}.\n{Lb} {masa[6]}.\n{St} {masa[7]}";
                     }
-                    else if (unidad.Text == ms_masa[3])
+                    else if (unidad.Text == masa[5])//Onzas (Oz)
                     {
-
+                        double g = i * 1000, T = i / 1000, UsT = i / 907.185, UkT = i / 1016, Oz = i * 32.274, Lb = i * 2.20462, St = i / 6.35;
+                        outtxt.Text = $"{i} {masa[0]} son:\n{g} {masa[1]}.\n{T} {masa[2]}, {UsT} {masa[3]} o {UkT} {masa[4]}.\n{Oz} {masa[5]}.\n{Lb} {masa[6]}.\n{St} {masa[7]}";
+                    }
+                    else if (unidad.Text == masa[6])//Libras (lb)
+                    {
+                        double g = i * 1000, T = i / 1000, UsT = i / 907.185, UkT = i / 1016, Oz = i * 32.274, Lb = i * 2.20462, St = i / 6.35;
+                        outtxt.Text = $"{i} {masa[0]} son:\n{g} {masa[1]}.\n{T} {masa[2]}, {UsT} {masa[3]} o {UkT} {masa[4]}.\n{Oz} {masa[5]}.\n{Lb} {masa[6]}.\n{St} {masa[7]}";
+                    }
+                    else if (unidad.Text == masa[7])//Stones (st)
+                    {
+                        double g = i * 1000, T = i / 1000, UsT = i / 907.185, UkT = i / 1016, Oz = i * 32.274, Lb = i * 2.20462, St = i / 6.35;
+                        outtxt.Text = $"{i} {masa[0]} son:\n{g} {masa[1]}.\n{T} {masa[2]}, {UsT} {masa[3]} o {UkT} {masa[4]}.\n{Oz} {masa[5]}.\n{Lb} {masa[6]}.\n{St} {masa[7]}";
                     }
                     else
                     {
@@ -250,19 +353,23 @@ namespace Zetaur_GUI
                 {
                     if (unidad.Text == ms_presion[0])//Pascal
                     {
-
+                        double kp = i / 1000, hp = i / 100, Mp = kp / 1000;
+                        outtxt.Text = $"{i} {ms_presion[0]} son\n{hp} {ms_presion[2]}.\n{kp} {ms_presion[1]}.\n{Mp} {ms_presion[3]}";
                     }
                     else if (unidad.Text == ms_presion[1])//Kilopascal
                     {
-
+                        double kp = i / 1000, hp = i / 100, Mp = kp / 1000;
+                        outtxt.Text = $"{i} {ms_presion[0]} son\n{hp} {ms_presion[2]}.\n{kp} {ms_presion[1]}.\n{Mp} {ms_presion[3]}";
                     }
                     else if (unidad.Text == ms_presion[2])//Hectopascal
                     {
-
+                        double kp = i / 1000, hp = i / 100, Mp = kp / 1000;
+                        outtxt.Text = $"{i} {ms_presion[0]} son\n{hp} {ms_presion[2]}.\n{kp} {ms_presion[1]}.\n{Mp} {ms_presion[3]}";
                     }
                     else if (unidad.Text == ms_presion[3])//Megapascal
                     {
-
+                        double pa = i * 1000000, kp = i * 1000, hp = kp * 10;
+                        outtxt.Text = $"{i} {ms_presion[3]} son\n{pa} {ms_presion[0]}.\n{kp} {ms_presion[1]}.\n{hp} {ms_presion[2]}";
                     }
                     else
                     {
@@ -274,41 +381,95 @@ namespace Zetaur_GUI
                     if (unidad.Text == presion[0])
                     {
 
+                        outtxt.Text = $"{i} {presion[0]} son:\n{bar} {presion[1]}\n{mbar} {presion[2]}\n{psi} {presion[3]}";
                     }
                     else if (unidad.Text == presion[1])
                     {
+                        double atm = i / 1.013, mbar = i * 1000, psi = 14.5038, Pa = i * 100000, hpa = Pa / 100, mmhg = i * 750.062, torr = mmhg, kpcm = i * 1.0172;
 
                     }
                     else if (unidad.Text == presion[2])
                     {
+                        double[] o = Conversor.kpcm(i);
+                        string[] s = new string[8];
+                        for (int i = 0; i < o.Length; i++)
+                        {
+                            s[i] = $"{o[i]}";
+                        }
+
+                        outtxt.Text = $"{i} {presion[8]} son:\n{s[0]} {presion[0]}\n{s[1]} {presion[1]}\n{s[2]} {presion[2]}\n{s[3]} {presion[3]}\n{s[4]} {presion[4]}\n{s[5]} {presion[5]}\n{s[6]} {presion[6]}\n{s[7]} {presion[7]}\n";
 
                     }
                     else if (unidad.Text == presion[3])
                     {
+                        double[] o = Conversor.kpcm(i);
+                        string[] s = new string[8];
+                        for (int i = 0; i < o.Length; i++)
+                        {
+                            s[i] = $"{o[i]}";
+                        }
+
+                        outtxt.Text = $"{i} {presion[8]} son:\n{s[0]} {presion[0]}\n{s[1]} {presion[1]}\n{s[2]} {presion[2]}\n{s[3]} {presion[3]}\n{s[4]} {presion[4]}\n{s[5]} {presion[5]}\n{s[6]} {presion[6]}\n{s[7]} {presion[7]}\n";
 
                     }
                     else if (unidad.Text == presion[4])
                     {
+                        double[] o = Conversor.kpcm(i);
+                        string[] s = new string[8];
+                        for (int i = 0; i < o.Length; i++)
+                        {
+                            s[i] = $"{o[i]}";
+                        }
+
+                        outtxt.Text = $"{i} {presion[8]} son:\n{s[0]} {presion[0]}\n{s[1]} {presion[1]}\n{s[2]} {presion[2]}\n{s[3]} {presion[3]}\n{s[4]} {presion[4]}\n{s[5]} {presion[5]}\n{s[6]} {presion[6]}\n{s[7]} {presion[7]}\n";
 
                     }
                     else if (unidad.Text == presion[5])
                     {
+                        double[] o = Conversor.kpcm(i);
+                        string[] s = new string[8];
+                        for (int i = 0; i < o.Length; i++)
+                        {
+                            s[i] = $"{o[i]}";
+                        }
+
+                        outtxt.Text = $"{i} {presion[8]} son:\n{s[0]} {presion[0]}\n{s[1]} {presion[1]}\n{s[2]} {presion[2]}\n{s[3]} {presion[3]}\n{s[4]} {presion[4]}\n{s[5]} {presion[5]}\n{s[6]} {presion[6]}\n{s[7]} {presion[7]}\n";
 
                     }
                     else if (unidad.Text == presion[6])
                     {
+                        double[] o = Conversor.kpcm(i);
+                        string[] s = new string[8];
+                        for (int i = 0; i < o.Length; i++)
+                        {
+                            s[i] = $"{o[i]}";
+                        }
+
+                        outtxt.Text = $"{i} {presion[8]} son:\n{s[0]} {presion[0]}\n{s[1]} {presion[1]}\n{s[2]} {presion[2]}\n{s[3]} {presion[3]}\n{s[4]} {presion[4]}\n{s[5]} {presion[5]}\n{s[6]} {presion[6]}\n{s[7]} {presion[7]}\n";
 
                     }
                     else if (unidad.Text == presion[7])
                     {
+                        double[] o = Conversor.kpcm(i);
+                        string[] s = new string[8];
+                        for (int i = 0; i < o.Length; i++)
+                        {
+                            s[i] = $"{o[i]}";
+                        }
+
+                        outtxt.Text = $"{i} {presion[8]} son:\n{s[0]} {presion[0]}\n{s[1]} {presion[1]}\n{s[2]} {presion[2]}\n{s[3]} {presion[3]}\n{s[4]} {presion[4]}\n{s[5]} {presion[5]}\n{s[6]} {presion[6]}\n{s[7]} {presion[7]}\n";
 
                     }
                     else if (unidad.Text == presion[8])
                     {
+                        double[] o = Conversor.kpcm(i);
+                        string[] s = new string[8];
+                        for (int i = 0; i < o.Length; i++)
+                        {
+                            s[i] = $"{o[i]}";
+                        }
 
-                    }
-                    else if (unidad.Text == presion[9])
-                    {
+                        outtxt.Text = $"{i} {presion[8]} son:\n{s[0]} {presion[0]}\n{s[1]} {presion[1]}\n{s[2]} {presion[2]}\n{s[3]} {presion[3]}\n{s[4]} {presion[4]}\n{s[5]} {presion[5]}\n{s[6]} {presion[6]}\n{s[7]} {presion[7]}\n";
 
                     }
                     else
