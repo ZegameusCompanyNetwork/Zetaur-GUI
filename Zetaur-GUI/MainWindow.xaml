@@ -68,7 +68,7 @@
                         <ComboBoxItem Content="Presión"/>
                     </ComboBox>
                     <Label Content="Seleccione la magnitud a transformar" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" FontSize="14"/>
-                    <ComboBox HorizontalAlignment="Left" Margin="293,68,0,0" VerticalAlignment="Top" Width="100" Name="unidad" SelectedIndex="0"/>
+                    <ComboBox HorizontalAlignment="Left" Margin="293,68,0,0" VerticalAlignment="Top" Width="100" Name="unidad" SelectedIndex="0" DropDownClosed="Unidad_DropDownClosed"/>
                     <CheckBox Content="Múltipos y Submúltiplos" HorizontalAlignment="Left" Margin="16,94,0,0" VerticalAlignment="Top" Name="MS_check" Checked="Magnitud_DropDownClosed" Unchecked="Magnitud_DropDownClosed" RenderTransformOrigin="0.5,0.5" ToolTip="Cuando se selecciona en Temperatura, habilita unidades poco usadas"/>
                     <TextBlock x:Name="outtxt" HorizontalAlignment="Stretch" Margin="30,125,30,50" TextWrapping="Wrap" VerticalAlignment="Stretch" Opacity="0.8" FontSize="24"/>
                     <Label Content="Los valores X,XXXE+XXX están en notación cientifica, E+XXX equivale a 10^XXX." HorizontalAlignment="Stretch" Margin="600,20,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="18"/>

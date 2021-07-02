@@ -42,7 +42,8 @@ namespace Zetaur_GUI
         {
             hora_lb.Content = DateTime.Now.ToLongTimeString();
         }
-        public readonly string[] temps = new string[] { "Celsius (ºC)", "Farenheit (ºF)", "Kelvin (K)" };
+        public readonly string[] temps = new string[] { "Celsius (ºC)", "Fahrenheit (ºF)", "Kelvin (K)" };
+        public readonly string[] a_temps = new string[] { "Celsius (ºC)", "Fahrenheit (ºF)", "Kelvin (K)", "Rankine (ºR)", "Réaumur (ºRe)" };
         public readonly string[] long_ms = new string[] { "Kilómetros (km)", "Metros (m)", "Centímetros (cm)", "Milímetros (mm)", "Micrómetros (µm)", "Nanómetros (nm)" };
         public readonly string[] long_all = new string[] { "Kilómetros (km)", "Metros (m)", "Millas (Mi)", "Millas Náuticas (Nmi)", "Pulgadas (in)", "Yardas (Yd)", "Pies (ft)" };
         /// <summary>
@@ -132,17 +133,16 @@ namespace Zetaur_GUI
         /// </list>
         /// </summary>
         public readonly string[] presion = new string[] { "Atmósferas (atm)", "Bares (bar)", "Milibares (mbar)", "Libra por pulgada cuadrada (PSI)", "Pascales (Pa)", "Hectopascales (hPa)", "Milímetros de Mercurio (mmHg)", "Torr (torr)", "Kilopondio por centímetro cuadrado" };
-
         /// <summary>
         /// 0 = Pascal, 1 = Kilopascal, 2 = Hectopascal, 3 = Megapascal
         /// </summary>
         public readonly string[] ms_presion = new string[] { "Pascal (Pa)", "Kilopascal (kPa)", "Hectopascal (hPa)", "Megapascal (MPa)" };
-        
+
         public double i;//Entrada numerica
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string inputxt = inputtext.Text;
-
+            //Convertimos la entrada de tipo cadena a double (si se puede)
             try
             {
                 i = double.Parse(Regex.Replace(inputxt, "[.,']", CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator));
@@ -159,21 +159,91 @@ namespace Zetaur_GUI
             #region Temperatura
             if (magnitud.Text == "Temperatura")
             {
-                if (unidad.Text == "Celsius (ºC)")
+                if (MS_check.IsChecked == true)
                 {
-                    double fahr = (i * 9 / 5) + 32, kel = i + 273.15;
-                    outtxt.Text = $"{Math.Round(i, 4)} ºC son: \n{Math.Round(fahr, 4)} Grados Farenheit (ºF).\n{Math.Round(kel, 4)} Kelvins";
+                    if (unidad.Text == a_temps[0])
+                    {
+                        double[] o = Temp.Celsius(i);
+                        string[] s = new string[4];
+                        for (int i = 0; i < o.Length; i++)
+                        {
+                            s[i] = $"{o[i]}";
+                        }
+                        outtxt.Text = $"{Math.Round(i, 4)} {a_temps[0]} son: \n{Math.Round(o[0], 4)} {a_temps[1]}.\n{Math.Round(o[1], 4)} {a_temps[2]}." +
+                            $"\n{Math.Round(o[2], 4)} {a_temps[3]}.\n{Math.Round(o[3], 4)} {a_temps[4]}.\n";
+                    }
+                    else if (unidad.Text == a_temps[1])
+                    {
+                        double[] o = Temp.Fahr(i);
+                        string[] s = new string[4];
+                        for (int i = 0; i < o.Length; i++)
+                        {
+                            s[i] = $"{o[i]}";
+                        }
+                        outtxt.Text = $"{Math.Round(i, 4)} {a_temps[1]} son:\n{Math.Round(o[0], 4)} {a_temps[0]}.\n{Math.Round(o[1], 4)} {a_temps[2]}." +
+                            $"\n{Math.Round(o[2],4)} {a_temps[3]}.\n{Math.Round(o[3],4)} {a_temps[4]}";
+                    }
+                    else if (unidad.Text == a_temps[2])
+                    {
+                        double[] o = Temp.Kelvin(i);
+                        string[] s = new string[4];
+                        for (int i = 0; i < o.Length; i++)
+                        {
+                            s[i] = $"{o[i]}";
+                        }
+                        outtxt.Text = $"{Math.Round(i, 4)} {a_temps[2]} son:\n{Math.Round(o[0], 4)} {a_temps[0]}.\n{Math.Round(o[1], 4)} {a_temps[1]}." +
+                            $"\n{Math.Round(o[2], 4)} {a_temps[3]}.\n{Math.Round(o[3], 4)} {a_temps[4]}";
+                    }
+                    else if (unidad.Text == a_temps[3])
+                    {
+                        double[] o = Temp.Rankine(i);
+                        string[] s = new string[4];
+                        for (int i = 0; i < o.Length; i++)
+                        {
+                            s[i] = $"{o[i]}";
+                        }
+                        outtxt.Text = $"{Math.Round(i, 4)} {a_temps[3]} son:\n{Math.Round(o[0], 4)} {a_temps[0]}.\n{Math.Round(o[1], 4)} {a_temps[1]}." +
+                            $"\n{Math.Round(o[2], 4)} {a_temps[2]}.\n{Math.Round(o[3], 4)} {a_temps[4]}";
+                    }
+                    else if (unidad.Text == a_temps[4])
+                    {
+                        double[] o = Temp.Reaumur(i);
+                        string[] s = new string[4];
+                        for (int i = 0; i < o.Length; i++)
+                        {
+                            s[i] = $"{o[i]}";
+                        }
+                        outtxt.Text = $"{Math.Round(i, 4)} {a_temps[4]} son:\n{Math.Round(o[0], 4)} {a_temps[0]}.\n{Math.Round(o[1], 4)} {a_temps[1]}." +
+                            $"\n{Math.Round(o[2], 4)} {a_temps[2]}.\n{Math.Round(o[3], 4)} {a_temps[3]}";
+                    }
+                    else { MessageBox.Show("Esto no debería aparecerte", "Error al seleccionar Unidad",MessageBoxButton.OK,MessageBoxImage.Error); }
                 }
-                else if (unidad.Text == "Farenheit (ºF)")
+                else if (MS_check.IsChecked == false)
                 {
-                    double cels = (i - 32) * 5 / 9, kel = (i - 32) * 5 / 9 + 273.15;
-                    outtxt.Text = $"{Math.Round(i, 4)} ºF son:\n{Math.Round(cels, 4)} Grados Centigrados (ºC).\n{Math.Round(kel, 4)} Kelvins.";
+                    if (unidad.Text == temps[0])
+                    {
+                        double[] o = Temp.Celsius(i);
+                        string[] s = new string[4];
+                        for (int i = 0; i < o.Length; i++)
+                        {
+                            s[i] = $"{o[i]}";
+                        }
+
+                        outtxt.Text = $"{Math.Round(i, 4)} ºC son: \n{Math.Round(o[1], 4)} {a_temps[1]}.\n{Math.Round(o[2], 4)} {a_temps[2]}.";
+                    }
+                    else if (unidad.Text == temps[1])
+                    {
+                        double cels = (i - 32) * 5 / 9, kel = (i - 32) * 5 / 9 + 273.15;
+                        outtxt.Text = $"{Math.Round(i, 4)} ºF son:\n{Math.Round(cels, 4)} Grados Centigrados (ºC).\n{Math.Round(kel, 4)} Kelvins.";
+                    }
+                    else if (unidad.Text == temps[2])
+                    {
+                        double cels = i - 273.15, fahr = (i - 273.15) * 5 / 9 + 32;
+                        outtxt.Text = $"{Math.Round(i, 4)} Kelvins son:\n{Math.Round(cels, 4)} Grados Centigrados (ºC).\n{Math.Round(fahr, 4)} Grados Farenheit (ºF).";
+                    }
+                    else { MessageBox.Show("Esto no debería aparecerte", "Error al seleccionar Unidad", MessageBoxButton.OK, MessageBoxImage.Error); }
                 }
-                else
-                {
-                    double cels = i - 273.15, fahr = (i - 273.15) * 5 / 9 + 32;
-                    outtxt.Text = $"{Math.Round(i, 4)} Kelvins son:\n{Math.Round(cels, 4)} Grados Centigrados (ºC).\n{Math.Round(fahr, 4)} Grados Farenheit (ºF).";
-                }
+                else { MessageBox.Show("Esto no debería aparecerte", "Error en la ejecución del programa", MessageBoxButton.OK, MessageBoxImage.Error); }
             }
             #endregion
             #region Longitud
@@ -379,7 +449,7 @@ namespace Zetaur_GUI
                         MessageBox.Show("Esto no debería aparecerte", "Error en la unidad seleccionada", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
-                
+
                 else if (MS_check.IsChecked == false)
                 {
                     if (unidad.Text == presion[0])
@@ -511,11 +581,22 @@ namespace Zetaur_GUI
             if (magnitud.SelectedIndex == 0)//Temperaturas
             {
                 unidad.Items.Clear();//Limpiamos lo que pueda haber en el ComboBox
-                foreach (string s in temps)//Buscamos en el arreglo temps todos las strings y las añadimos al ComboBox
+                if (MS_check.IsChecked == true)
                 {
-                    unidad.Items.Add(s);
+                    foreach (string s in a_temps)//Buscamos en el arreglo temps todos las strings y las añadimos al ComboBox
+                    {
+                        unidad.Items.Add(s);
+                    }
+                    unidad.SelectedIndex = 0;//Selecionamos el primer objeto de la lista
                 }
-                unidad.SelectedIndex = 0;//Selecionamos el primer objeto de la lista
+                else
+                {
+                    foreach (string s in temps)//Buscamos en el arreglo a_temps todos las strings y las añadimos al ComboBox
+                    {
+                        unidad.Items.Add(s);
+                    }
+                    unidad.SelectedIndex = 0;//Selecionamos el primer objeto de la lista
+                }
 
             }
             else if (magnitud.SelectedIndex == 1)//Longitud
@@ -610,6 +691,15 @@ namespace Zetaur_GUI
             {
                 Button_Click(sender, e);
             }
+        }
+        /// <summary>
+        /// Borramos la salida al cerrar el menu de las unidades
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Unidad_DropDownClosed(object sender, EventArgs e)
+        {
+            outtxt.Text = "";
         }
     }
 }
