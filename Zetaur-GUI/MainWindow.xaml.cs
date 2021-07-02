@@ -38,6 +38,10 @@ namespace Zetaur_GUI
             string dtStr = dt.ToString(@"dd/MM/yyyy");
             fecha_lb.Content = dtStr;
         }
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            hora_lb.Content = DateTime.Now.ToLongTimeString();
+        }
         public readonly string[] temps = new string[] { "Celsius (ºC)", "Farenheit (ºF)", "Kelvin (K)" };
         public readonly string[] long_ms = new string[] { "Kilómetros (km)", "Metros (m)", "Centímetros (cm)", "Milímetros (mm)", "Micrómetros (µm)", "Nanómetros (nm)" };
         public readonly string[] long_all = new string[] { "Kilómetros (km)", "Metros (m)", "Millas (Mi)", "Millas Náuticas (Nmi)", "Pulgadas (in)", "Yardas (Yd)", "Pies (ft)" };
@@ -133,10 +137,7 @@ namespace Zetaur_GUI
         /// 0 = Pascal, 1 = Kilopascal, 2 = Hectopascal, 3 = Megapascal
         /// </summary>
         public readonly string[] ms_presion = new string[] { "Pascal (Pa)", "Kilopascal (kPa)", "Hectopascal (hPa)", "Megapascal (MPa)" };
-        private void DispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            hora_lb.Content = DateTime.Now.ToLongTimeString();
-        }
+        
         public double i;//Entrada numerica
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -349,6 +350,7 @@ namespace Zetaur_GUI
             #region Presión
             else if (magnitud.Text == "Presión")
             {
+                //Comprobar el Checkbox de unidades
                 if (MS_check.IsChecked == true)
                 {
                     if (unidad.Text == ms_presion[0])//Pascal
@@ -373,24 +375,36 @@ namespace Zetaur_GUI
                     }
                     else
                     {
+                        //Esto solo esta aquí por si algo falla.
                         MessageBox.Show("Esto no debería aparecerte", "Error en la unidad seleccionada", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
+                
                 else if (MS_check.IsChecked == false)
                 {
                     if (unidad.Text == presion[0])
                     {
-
-                        outtxt.Text = $"{i} {presion[0]} son:\n{bar} {presion[1]}\n{mbar} {presion[2]}\n{psi} {presion[3]}";
+                        double[] o = Conversor.Atm(i);
+                        string[] s = new string[8];
+                        for (int i = 0; i < o.Length; i++)
+                        {
+                            s[i] = $"{o[i]}";
+                        }
+                        outtxt.Text = $"{i} {presion[0]} son:\n{s[1]} {presion[1]}\n{s[2]} {presion[2]}.\n{s[3]} {presion[3]}.\n{s[4]} {presion[4]}.\n{s[5]} {presion[5]}.\n{s[6]} {presion[6]}.\n{s[7]} {presion[7]}.\n{s[8]} {presion[8]}.";
                     }
                     else if (unidad.Text == presion[1])
                     {
-                        double atm = i / 1.013, mbar = i * 1000, psi = 14.5038, Pa = i * 100000, hpa = Pa / 100, mmhg = i * 750.062, torr = mmhg, kpcm = i * 1.0172;
+                        double[] o = Conversor.Bar(i);
+                        string[] s = new string[8];
+                        for (int i = 0; i < o.Length; i++)
+                        {
+                            s[i] = $"{o[i]}";
+                        }
 
                     }
                     else if (unidad.Text == presion[2])
                     {
-                        double[] o = Conversor.kpcm(i);
+                        double[] o = Conversor.Mbar(i);
                         string[] s = new string[8];
                         for (int i = 0; i < o.Length; i++)
                         {
@@ -402,7 +416,7 @@ namespace Zetaur_GUI
                     }
                     else if (unidad.Text == presion[3])
                     {
-                        double[] o = Conversor.kpcm(i);
+                        double[] o = Conversor.Psi(i);
                         string[] s = new string[8];
                         for (int i = 0; i < o.Length; i++)
                         {
@@ -414,7 +428,7 @@ namespace Zetaur_GUI
                     }
                     else if (unidad.Text == presion[4])
                     {
-                        double[] o = Conversor.kpcm(i);
+                        double[] o = Conversor.Pa(i);
                         string[] s = new string[8];
                         for (int i = 0; i < o.Length; i++)
                         {
@@ -426,7 +440,7 @@ namespace Zetaur_GUI
                     }
                     else if (unidad.Text == presion[5])
                     {
-                        double[] o = Conversor.kpcm(i);
+                        double[] o = Conversor.Hpa(i);
                         string[] s = new string[8];
                         for (int i = 0; i < o.Length; i++)
                         {
@@ -438,7 +452,7 @@ namespace Zetaur_GUI
                     }
                     else if (unidad.Text == presion[6])
                     {
-                        double[] o = Conversor.kpcm(i);
+                        double[] o = Conversor.Mmhg(i);
                         string[] s = new string[8];
                         for (int i = 0; i < o.Length; i++)
                         {
@@ -450,7 +464,7 @@ namespace Zetaur_GUI
                     }
                     else if (unidad.Text == presion[7])
                     {
-                        double[] o = Conversor.kpcm(i);
+                        double[] o = Conversor.Torr(i);
                         string[] s = new string[8];
                         for (int i = 0; i < o.Length; i++)
                         {
@@ -460,9 +474,9 @@ namespace Zetaur_GUI
                         outtxt.Text = $"{i} {presion[8]} son:\n{s[0]} {presion[0]}\n{s[1]} {presion[1]}\n{s[2]} {presion[2]}\n{s[3]} {presion[3]}\n{s[4]} {presion[4]}\n{s[5]} {presion[5]}\n{s[6]} {presion[6]}\n{s[7]} {presion[7]}\n";
 
                     }
-                    else if (unidad.Text == presion[8])
+                    else if (unidad.Text == presion[8])//kilopondio /cm^2
                     {
-                        double[] o = Conversor.kpcm(i);
+                        double[] o = Conversor.Kpcm(i);
                         string[] s = new string[8];
                         for (int i = 0; i < o.Length; i++)
                         {
