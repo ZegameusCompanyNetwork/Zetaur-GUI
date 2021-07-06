@@ -4,6 +4,7 @@
 
 bin
 obj
+.vs/
 .suo
 .user
 .dtbcache.v2

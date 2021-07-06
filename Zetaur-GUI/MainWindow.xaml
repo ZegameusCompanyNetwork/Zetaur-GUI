@@ -30,26 +30,6 @@
                     <GradientStop Color="#FF236FAE" Offset="0.5"/>
                 </LinearGradientBrush>
             </TabControl.Background>
-            <TabItem Header="Inicio" >
-                <StackPanel MouseLeftButtonDown="Window_MouseLeftButtonDown" HorizontalAlignment="Center" Width="735" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5">
-                    <StackPanel.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </StackPanel.RenderTransform>
-                    <StackPanel.Background>
-                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                            <GradientStop Color="#FFB8DBEE"/>
-                            <GradientStop Color="#FF1896D8" Offset="1"/>
-                        </LinearGradientBrush>
-                    </StackPanel.Background>
-                    <Label x:Name="hora_lb" Content="" FontFamily="Arial" FontSize="72" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <Label Content="" x:Name="fecha_lb" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                </StackPanel>
-            </TabItem>
             <TabItem Header="Conversor de Unidades" Margin="-2,-2,2,0">
                 <Grid Height="673" HorizontalAlignment="Stretch" Width="1274">
                     <Grid.Background>
@@ -75,6 +55,7 @@
 
                 </Grid>
             </TabItem>
+            
         </TabControl>
 
 

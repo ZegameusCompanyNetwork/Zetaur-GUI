@@ -28,24 +28,11 @@ namespace Zetaur_GUI
         {
             InitializeComponent();
             unidad.SelectedIndex = 0;
-            hora_lb.Content = DateTime.Now.ToLongTimeString();
-
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(DispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
-            dispatcherTimer.Start();
-            DateTime dt = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Unspecified);
-            string dtStr = dt.ToString(@"dd/MM/yyyy");
-            fecha_lb.Content = dtStr;
         }
-        private void DispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            hora_lb.Content = DateTime.Now.ToLongTimeString();
-        }
-        public readonly string[] temps = new string[] { "Celsius (ºC)", "Fahrenheit (ºF)", "Kelvin (K)" };
-        public readonly string[] a_temps = new string[] { "Celsius (ºC)", "Fahrenheit (ºF)", "Kelvin (K)", "Rankine (ºR)", "Réaumur (ºRe)" };
-        public readonly string[] long_ms = new string[] { "Kilómetros (km)", "Metros (m)", "Centímetros (cm)", "Milímetros (mm)", "Micrómetros (µm)", "Nanómetros (nm)" };
-        public readonly string[] long_all = new string[] { "Kilómetros (km)", "Metros (m)", "Millas (Mi)", "Millas Náuticas (Nmi)", "Pulgadas (in)", "Yardas (Yd)", "Pies (ft)" };
+        public static readonly string[] temps = new string[] { "Celsius (ºC)", "Fahrenheit (ºF)", "Kelvin (K)" };
+        public static readonly string[] a_temps = new string[] { "Celsius (ºC)", "Fahrenheit (ºF)", "Kelvin (K)", "Rankine (ºR)", "Réaumur (ºRe)" };
+        public static readonly string[] long_ms = new string[] { "Kilómetros (km)", "Metros (m)", "Centímetros (cm)", "Milímetros (mm)", "Micrómetros (µm)", "Nanómetros (nm)" };
+        public static readonly string[] long_all = new string[] { "Kilómetros (km)", "Metros (m)", "Millas (Mi)", "Millas Náuticas (Nmi)", "Pulgadas (in)", "Yardas (Yd)", "Pies (ft)" };
         /// <summary>
         /// <list type="table">
         /// <listheader>
@@ -86,8 +73,8 @@ namespace Zetaur_GUI
         /// </item>
         /// </list>
         /// </summary>
-        public readonly string[] masa = new string[] { "Kilogramos (Kg)", "Gramos (g)", "Toneladas (t)", "Tonelada Corta (US t)", "Tonelada larga (UK t)", "Onzas (Oz)", "Libras (lb)", "Stones (st)" };
-        public readonly string[] ms_masa = new string[] { "Toneladas (t)", "Kilogramos (Kg)", "Gramos (g)", "Miligramos (mg)" };
+        public static readonly string[] masa = new string[] { "Kilogramos (Kg)", "Gramos (g)", "Toneladas (t)", "Tonelada Corta (US t)", "Tonelada larga (UK t)", "Onzas (Oz)", "Libras (lb)", "Stones (st)" };
+        public static readonly string[] ms_masa = new string[] { "Toneladas (t)", "Kilogramos (Kg)", "Gramos (g)", "Miligramos (mg)" };
         /// <summary>
         /// <list type="table">
         /// <listheader>
@@ -132,11 +119,11 @@ namespace Zetaur_GUI
         /// </item>
         /// </list>
         /// </summary>
-        public readonly string[] presion = new string[] { "Atmósferas (atm)", "Bares (bar)", "Milibares (mbar)", "Libra por pulgada cuadrada (PSI)", "Pascales (Pa)", "Hectopascales (hPa)", "Milímetros de Mercurio (mmHg)", "Torr (torr)", "Kilopondio por centímetro cuadrado" };
+        public static readonly string[] presion = new string[] { "Atmósferas (atm)", "Bares (bar)", "Milibares (mbar)", "Libra por pulgada cuadrada (PSI)", "Pascales (Pa)", "Hectopascales (hPa)", "Milímetros de Mercurio (mmHg)", "Torr (torr)", "Kilopondio por centímetro cuadrado" };
         /// <summary>
         /// 0 = Pascal, 1 = Kilopascal, 2 = Hectopascal, 3 = Megapascal
         /// </summary>
-        public readonly string[] ms_presion = new string[] { "Pascal (Pa)", "Kilopascal (kPa)", "Hectopascal (hPa)", "Megapascal (MPa)" };
+        public static readonly string[] ms_presion = new string[] { "Pascal (Pa)", "Kilopascal (kPa)", "Hectopascal (hPa)", "Megapascal (MPa)" };
 
         public double i;//Entrada numerica
         private void Button_Click(object sender, RoutedEventArgs e)
