@@ -351,7 +351,6 @@ namespace Zetaur_GUI
                 }
                 else if (MS_check.IsChecked == false)
                 {
-
                     if (unidad.Text == masa[0])//Kilogramos
                     {
                         double g = i * 1000, T = i / 1000, UsT = i / 907.185, UkT = i / 1016, Oz = i * 32.274, Lb = i * 2.20462, St = i / 6.35;
